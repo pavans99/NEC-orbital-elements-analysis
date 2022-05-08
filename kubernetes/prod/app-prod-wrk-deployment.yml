@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prod-wrk-deployment
+  labels:
+    app: prod-wrk-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prod-wrk-deployment
+  template: 
+    metadata:
+      labels:
+        app: prod-wrk-deployment
+    spec:
+      containers:
+        - name: prod-wrk-deployment
+          imagePullPolicy: Always
+          image: niccoleriera/necelements_wrk:latest 
+          env:
+          - name: REDIS_IP
+            value: 
+
