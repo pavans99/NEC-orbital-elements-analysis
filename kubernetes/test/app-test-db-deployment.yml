@@ -1,0 +1,32 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-db-deployment
+  labels:
+    username: nriera
+    env: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      username: nriera
+      env: test
+  template:
+    metadata:
+      labels:
+        username: nriera
+        env: test
+        app: test-db-deployment
+    spec:
+      containers:
+        - name: test-db-deployment
+          image: redis:6
+          command:
+          volumeMounts:
+          - name: test-db-pvc
+            mountPath: "/data"
+      volumes:
+      - name: test-db-pvc
+        persistentVolumeClaim:
+          claimName: test-db-pvc
