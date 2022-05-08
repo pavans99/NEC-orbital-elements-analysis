@@ -1,0 +1,32 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prod-db-deployment
+  labels:
+    username: nriera
+    env: prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      username: nriera
+      env: prod
+  template:
+    metadata:
+      labels:
+        username: nriera
+        env: prod
+        app: prod-db-deployment
+    spec:
+      containers:
+        - name: prod-db-deployment
+          image: redis:6
+          command:
+          volumeMounts:
+          - name: prod-db-pvc
+            mountPath: "/data"
+      volumes:
+      - name: prod-db-pvc
+        persistentVolumeClaim:
+          claimName: prod-db-pvc
