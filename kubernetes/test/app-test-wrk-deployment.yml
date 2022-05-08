@@ -1,0 +1,24 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-wrk-deployment
+  labels:
+    app: test-wrk-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-wrk-deployment
+  template:
+    metadata:
+      labels:
+        app: test-wrk-deployment
+    spec:
+      containers:
+        - name: test-wrk-deployment
+          imagePullPolicy: Always
+          image: niccoleriera/necelements_wrk:latest
+          env:
+          - name: REDIS_IP
+            value:
